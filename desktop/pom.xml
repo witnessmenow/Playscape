@@ -15,6 +15,14 @@
 	<properties>
 		<mainClass>com.ladinc.playscape.java.PlayScapeDesktop</mainClass>
 	</properties>
+	
+		<repositories>
+    	<repository>
+      		<id>in-project</id>
+      		<name>In Project Repo</name>
+      		<url>file://${project.basedir}/lib</url>
+    	</repository>
+    </repositories>
 
 	<dependencies>
 		<dependency>
@@ -40,6 +48,17 @@
 			<artifactId>gdx-platform</artifactId>
 			<version>${gdx.version}</version>
 			<classifier>natives-desktop</classifier>
+		</dependency>
+		
+				<dependency>
+			<groupId>extensions</groupId>
+			<artifactId>gdx-controllers-desktop</artifactId>
+			<version>0.9.8</version>
+		</dependency>
+		<dependency>
+			<groupId>extensions</groupId>
+			<artifactId>gdx-controllers-desktop-natives</artifactId>
+			<version>0.9.8</version>
 		</dependency>
 	</dependencies>
 

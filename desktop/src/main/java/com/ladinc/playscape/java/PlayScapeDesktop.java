@@ -9,6 +9,8 @@ public class PlayScapeDesktop {
 	public static void main (String[] args) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.useGL20 = true;
+		config.width = 1920;
+		config.height = 1080;
 		new LwjglApplication(new PlayScape(), config);
 	}
 }

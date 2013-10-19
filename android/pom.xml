@@ -12,6 +12,14 @@
 	<packaging>apk</packaging>
 	<name>PlayScape Android</name>
 
+			<repositories>
+    	<repository>
+      		<id>in-project</id>
+      		<name>In Project Repo</name>
+      		<url>file://${project.basedir}/lib</url>
+    	</repository>
+    </repositories>
+	
 	<properties>
 		<keystore.path>game.keystore</keystore.path>
 		<keystore.alias>game</keystore.alias>
@@ -53,6 +61,12 @@
 			<artifactId>android</artifactId>
 			<version>${android.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>extensions</groupId>
+			<artifactId>gdx-controllers-android</artifactId>
+			<version>0.9.8</version>
 		</dependency>
 	</dependencies>
 
