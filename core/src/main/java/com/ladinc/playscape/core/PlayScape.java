@@ -1,21 +1,14 @@
 package com.ladinc.playscape.core;
 
 import java.util.ArrayList;
-import java.util.Map;
-
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.mappings.Ouya;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.ladinc.mcp.MCP;
-import com.ladinc.mcp.interfaces.MCPContorllersListener;
 import com.ladinc.playscape.core.collision.CollisionHelper;
 import com.ladinc.playscape.core.controls.IControls;
 import com.ladinc.playscape.core.controls.KeyboardControls;

@@ -13,7 +13,6 @@ public class PlayScapeActivity extends AndroidApplication {
 	public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-			config.useGL20 = true;
 			initialize(new PlayScape(), config);
 	}
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -13,8 +13,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.ladinc.playscape.core.PlayScape;
-import com.ladinc.playscape.core.objects.Arena;
-import com.ladinc.playscape.core.objects.Warrior;
 import com.ladinc.playscape.core.utilities.MusicHelper;
 
 public class TitleScreen implements Screen{
@@ -106,7 +104,7 @@ public class TitleScreen implements Screen{
         this.spriteBatch.begin();
         
     	Gdx.gl.glClearColor(0, 0f, 0f, 1);
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		this.bgSprite.draw(spriteBatch);
 		
