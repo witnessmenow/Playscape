@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.mappings.Ouya;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -15,6 +16,7 @@ import com.ladinc.playscape.core.controls.IControls;
 import com.ladinc.playscape.core.controls.KeyboardControls;
 import com.ladinc.playscape.core.controls.MCPListenerClient;
 import com.ladinc.playscape.core.controls.OuyaListener;
+import com.ladinc.playscape.core.controls.TouchScreenListener;
 import com.ladinc.playscape.core.screens.ArenaScreen;
 import com.ladinc.playscape.core.screens.TitleScreen;
 import com.ladinc.playscape.core.screens.WinScreen;
@@ -29,8 +31,8 @@ public class PlayScape extends Game {
 	
 	private MCP moreControllers;
 	
-	public ArrayList<IControls> inActiveControls = new ArrayList<IControls>();
-	public ArrayList<IControls> controls = new ArrayList<IControls>();
+	public static ArrayList<IControls> inActiveControls = new ArrayList<IControls>();
+	public static ArrayList<IControls> controls = new ArrayList<IControls>();
 	
 	public CollisionHelper colHelper;
 	
@@ -88,6 +90,14 @@ public class PlayScape extends Game {
             
 
         }
+        
+        if (Gdx.app.getType() == ApplicationType.Android
+				&& !(Ouya.runningOnOuya))
+		{
+			TouchScreenListener tsl = new TouchScreenListener();
+			inActiveControls.add(tsl.controls);
+			Gdx.input.setInputProcessor(tsl);
+		}
 		
 		inActiveControls.add(new KeyboardControls(Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.SPACE, Input.Keys.ESCAPE, this));
 		inActiveControls.add(new KeyboardControls(Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.SPACE, Input.Keys.ESCAPE, this));
