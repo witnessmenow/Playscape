@@ -95,7 +95,7 @@ public class WinScreen implements Screen{
 		 
 		 spriteBatch = new SpriteBatch();
 		 
-		 bgSprite = new Sprite(new Texture(Gdx.files.internal("win/" + this.game.winner +".jpg")));
+		 bgSprite = new Sprite(new Texture(Gdx.files.internal("win/" + (this.game.winner - 1) +".jpg")));
 		 
 		 if(this.game.isOuya)
 			 this.game.music = MusicHelper.playMenuMusic(this.game.music);

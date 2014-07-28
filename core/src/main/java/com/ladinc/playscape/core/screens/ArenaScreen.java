@@ -8,6 +8,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -15,7 +16,9 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.ladinc.playscape.core.PlayScape;
-import com.ladinc.playscape.core.assests.Art;
+import com.ladinc.playscape.core.assets.Art;
+import com.ladinc.playscape.core.assets.Font;
+import com.ladinc.playscape.core.assets.Font.FontsName;
 import com.ladinc.playscape.core.controls.IControls;
 import com.ladinc.playscape.core.objects.Arena;
 import com.ladinc.playscape.core.objects.Warrior;
@@ -52,6 +55,9 @@ public class ArenaScreen implements Screen
     
     private Arena arena;
     
+    private BitmapFont bitmapFont;
+    private BitmapFont smallerFont;
+    
     public List<Warrior> warriorsList;
     
     private Sprite bgSprite;
@@ -79,6 +85,9 @@ public class ArenaScreen implements Screen
         
         currentBGNum = 0;
         this.bgSprite = Art.BackgroundSprites.get(bgOrder[currentBGNum]);
+        
+        bitmapFont = Font.loadFont(FontsName.SWIS_721_50_BOLD);
+        smallerFont = Font.loadFont(FontsName.SWIS_721_32_BOLD);
 
     }
     
@@ -136,7 +145,7 @@ public class ArenaScreen implements Screen
 		
 		this.spriteBatch.end();
 		
-		debugRenderer.render(world, camera.combined.scale(PIXELS_PER_METER,PIXELS_PER_METER,PIXELS_PER_METER));
+		//debugRenderer.render(world, camera.combined.scale(PIXELS_PER_METER,PIXELS_PER_METER,PIXELS_PER_METER));
 		
 	}
 	
@@ -180,6 +189,7 @@ public class ArenaScreen implements Screen
 	    
 	    drawWarriors(spriteBatch);
 	    drawScores(spriteBatch);
+	    drawTimer();
 	
 	}
 	
@@ -243,13 +253,39 @@ public class ArenaScreen implements Screen
 			}
 		}
         
+        bitmapFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+        
         for(int i = 0; i < array.length; i++)
         {
         	Warrior each = (Warrior)array[i];
         	each.updateWarriorSprite(spriteBatch);
         	Art.ScoreIconSprites.get(each.warriorNumber).setPosition(this.screenWidth/14, 930f - (70f * i));
         	Art.ScoreIconSprites.get(each.warriorNumber).draw(spriteBatch);
+        	
+        	String tempScore = String.valueOf(each.score);
+        	
+        	bitmapFont.draw(spriteBatch, tempScore,
+        			this.screenWidth/14 + 100f,
+        			980f - (70f * i));
         }
+	}
+	
+	private void drawTimer()
+	{
+		bitmapFont.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		
+		int minutes = (int) gameTimeLeft / 60;
+		int seconds = (int) gameTimeLeft % 60;
+		
+		String secondPrepend = (seconds < 10) ? "0" : "";
+		
+		String timeLeft =  minutes + ":" + secondPrepend + seconds;
+		
+		
+		//Taking away the 30f as it doesnt seem like the monkey is centered on the screen ...
+		bitmapFont.draw(spriteBatch, timeLeft,
+				(screenWidth / 2) - 30f- bitmapFont.getBounds(timeLeft).width / 2,
+				screenHeight - 55);
 	}
 
 	@Override

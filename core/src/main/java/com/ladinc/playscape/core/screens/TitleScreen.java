@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.ladinc.playscape.core.PlayScape;
-import com.ladinc.playscape.core.assests.Art;
+import com.ladinc.playscape.core.assets.Art;
 import com.ladinc.playscape.core.utilities.MusicHelper;
 
 public class TitleScreen implements Screen{
@@ -65,7 +65,7 @@ public class TitleScreen implements Screen{
     
     private void changeBG()
     {
-    	if (3 == currentBGNum)
+    	if (2 == currentBGNum)
     		this.game.setScreen(this.game.arenaScreen);
     	else
     		currentBGNum++;

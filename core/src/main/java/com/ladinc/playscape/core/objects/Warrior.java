@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
-import com.ladinc.playscape.core.assests.Art;
+import com.ladinc.playscape.core.assets.Art;
 import com.ladinc.playscape.core.bel.BodyEditorLoader;
 import com.ladinc.playscape.core.collision.CollisionInfo;
 import com.ladinc.playscape.core.collision.CollisionInfo.CollisionObjectType;
@@ -276,8 +276,6 @@ public class Warrior {
 				}
 			}
 		}
-		
-		this.body.setLinearDamping(0.2f);
 	}
 	
 	public void updateWarriorSprite(SpriteBatch sb)

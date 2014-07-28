@@ -1,4 +1,4 @@
-package com.ladinc.playscape.core.assests;
+package com.ladinc.playscape.core.assets;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +50,7 @@ public class Art {
 		
 		SplashScreenSprites.add(new Sprite(new Texture(Gdx.files.internal("title/Back1.jpg"))));
 		SplashScreenSprites.add(new Sprite(new Texture(Gdx.files.internal("title/Back2.jpg"))));
-	    SplashScreenSprites.add(new Sprite(new Texture(Gdx.files.internal("title/Back3.jpg"))));
+	    //SplashScreenSprites.add(new Sprite(new Texture(Gdx.files.internal("title/Back3.jpg"))));
 	    SplashScreenSprites.add(new Sprite(new Texture(Gdx.files.internal("title/Back4.jpg"))));
 	}
 	

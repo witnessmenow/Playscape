@@ -9,7 +9,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.ladinc.mcp.MCP;
-import com.ladinc.playscape.core.assests.Assets;
+import com.ladinc.playscape.core.assets.Assets;
 import com.ladinc.playscape.core.collision.CollisionHelper;
 import com.ladinc.playscape.core.controls.IControls;
 import com.ladinc.playscape.core.controls.KeyboardControls;

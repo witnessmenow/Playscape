@@ -1,4 +1,4 @@
-package com.ladinc.playscape.core.assests;
+package com.ladinc.playscape.core.assets;
 
 public class Assets {
 	public static void load()
