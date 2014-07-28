@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.ladinc.playscape.core.PlayScape;
+import com.ladinc.playscape.core.assests.Art;
 import com.ladinc.playscape.core.utilities.MusicHelper;
 
 public class TitleScreen implements Screen{
@@ -37,7 +38,6 @@ public class TitleScreen implements Screen{
     
     private OrthographicCamera camera;
     
-    private List<Sprite> bgSpritesList;
     
     private int currentBGNum;
     
@@ -58,15 +58,8 @@ public class TitleScreen implements Screen{
     	this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, this.screenWidth, this.screenHeight);
         
-        bgSprite = new Sprite(new Texture(Gdx.files.internal("title/Back1.jpg")));
-        
         currentBGNum = 0;
-        
-        bgSpritesList = new ArrayList<Sprite>();
-        bgSpritesList.add(bgSprite);
-        bgSpritesList.add(new Sprite(new Texture(Gdx.files.internal("title/Back2.jpg"))));
-        bgSpritesList.add(new Sprite(new Texture(Gdx.files.internal("title/Back3.jpg"))));
-        bgSpritesList.add(new Sprite(new Texture(Gdx.files.internal("title/Back4.jpg"))));
+        this.bgSprite = Art.SplashScreenSprites.get(currentBGNum);
        
      }
     
@@ -77,7 +70,7 @@ public class TitleScreen implements Screen{
     	else
     		currentBGNum++;
     	
-    	this.bgSprite = bgSpritesList.get(currentBGNum);
+    	this.bgSprite = Art.SplashScreenSprites.get(currentBGNum);
     	
     	timeLeftToChangeBG = BG_CHANGE_TIME;
     	

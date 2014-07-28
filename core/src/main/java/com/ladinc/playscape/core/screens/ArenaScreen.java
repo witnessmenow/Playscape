@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.ladinc.playscape.core.PlayScape;
+import com.ladinc.playscape.core.assests.Art;
 import com.ladinc.playscape.core.controls.IControls;
 import com.ladinc.playscape.core.objects.Arena;
 import com.ladinc.playscape.core.objects.Warrior;
@@ -23,8 +24,8 @@ import com.ladinc.playscape.core.utilities.MusicHelper;
 public class ArenaScreen implements Screen 
 {
 	
-	private static float BG_CHANGE_TIME = 0.5f;
-	private static float GAME_TIME = 300f;
+	private static float BG_CHANGE_TIME = 1f;
+	private static float GAME_TIME = 3 * 60f;
 	//private static float GAME_TIME = 10f;
 	
 	private OrthographicCamera camera;
@@ -51,8 +52,6 @@ public class ArenaScreen implements Screen
     
     private Arena arena;
     
-    private List<Sprite> bgSpritesList;
-    
     public List<Warrior> warriorsList;
     
     private Sprite bgSprite;
@@ -78,18 +77,9 @@ public class ArenaScreen implements Screen
         
         this.debugRenderer = new Box2DDebugRenderer();
         
-        
-        bgSprite = new Sprite(new Texture(Gdx.files.internal("background/1.jpg")));
-        
         currentBGNum = 0;
-        
-        bgSpritesList = new ArrayList<Sprite>();
-        bgSpritesList.add(bgSprite);
-        bgSpritesList.add(new Sprite(new Texture(Gdx.files.internal("background/2.jpg"))));
-        bgSpritesList.add(new Sprite(new Texture(Gdx.files.internal("background/3.jpg"))));
-        bgSpritesList.add(new Sprite(new Texture(Gdx.files.internal("background/7.jpg"))));
-        bgSpritesList.add(new Sprite(new Texture(Gdx.files.internal("background/8.jpg"))));
-        bgSpritesList.add(new Sprite(new Texture(Gdx.files.internal("background/9.jpg"))));
+        this.bgSprite = Art.BackgroundSprites.get(bgOrder[currentBGNum]);
+
     }
     
     private void changeBG()
@@ -99,7 +89,7 @@ public class ArenaScreen implements Screen
     	else
     		currentBGNum++;
     	
-    	this.bgSprite = bgSpritesList.get(bgOrder[currentBGNum]);
+    	this.bgSprite = Art.BackgroundSprites.get(bgOrder[currentBGNum]);
     	
     	timeLeftToChangeBG = BG_CHANGE_TIME;
     	
@@ -179,44 +169,88 @@ public class ArenaScreen implements Screen
 		}
 	}
 	
-	 private void renderSprites(SpriteBatch spriteBatch)
-	    {
-	    	Gdx.gl.glClearColor(0, 0f, 0f, 1);
-	        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	        
-	        this.bgSprite.draw(spriteBatch);
-	        
-	        this.arena.arenaImage.draw(spriteBatch);
-	        
-	        int c,d, n;
-	        Warrior swap;
-	        
-	        n = warriorsList.size();
-	        
-	        Object[] array = warriorsList.toArray(); 
-	        
-	        for (c = 0; c < ( n - 1 ); c++) {
-	            for (d = 0; d < n - c - 1; d++) {
-	            	
-	            Warrior a = (Warrior)array[d];
-	            Warrior b = (Warrior)array[d+1];
-	            	
-	              if (a.body.getPosition().y < b.body.getPosition().y) /* For descending order use < */
-	              {
-	                swap       = (Warrior) array[d];
-	                array[d]   = array[d+1];
-	                array[d+1] = swap;
-	              }
-	            }
-	          }
-	        
-	        for(Object w: array)
-	        {
-	        	Warrior each = (Warrior)w;
-	        	each.updateWarriorSprite(spriteBatch);
-	        }
-
-	    }
+	private void renderSprites(SpriteBatch spriteBatch)
+	{
+		Gdx.gl.glClearColor(0, 0f, 0f, 1);
+	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	    
+	    this.bgSprite.draw(spriteBatch);
+	    
+	    this.arena.arenaImage.draw(spriteBatch);
+	    
+	    drawWarriors(spriteBatch);
+	    drawScores(spriteBatch);
+	
+	}
+	
+	//Warriors need to be sorted by which one is closest to the bottom so his sprite overlays others
+	private void drawWarriors(SpriteBatch spriteBatch)
+	{
+		int c,d, n;
+        Warrior swap;
+        
+        n = warriorsList.size();
+        
+        Object[] array = warriorsList.toArray(); 
+        
+        for (c = 0; c < ( n - 1 ); c++) 
+		{
+		    for (d = 0; d < n - c - 1; d++) 
+		    {
+		    	
+			    Warrior a = (Warrior)array[d];
+			    Warrior b = (Warrior)array[d+1];
+		    	
+				if (a.body.getPosition().y < b.body.getPosition().y) /* For descending order use < */
+				{
+					swap       = (Warrior) array[d];
+					array[d]   = array[d+1];
+					array[d+1] = swap;
+				}
+			}
+		}
+        
+        for(Object w: array)
+        {
+        	Warrior each = (Warrior)w;
+        	each.updateWarriorSprite(spriteBatch);
+        }
+	}
+	 
+	private void drawScores(SpriteBatch spriteBatch)
+	{
+		int c,d, n;
+        Warrior swap;
+        
+        n = warriorsList.size();
+        
+        Object[] array = warriorsList.toArray(); 
+        
+        for (c = 0; c < ( n - 1 ); c++) 
+		{
+		    for (d = 0; d < n - c - 1; d++) 
+		    {
+		    	
+			    Warrior a = (Warrior)array[d];
+			    Warrior b = (Warrior)array[d+1];
+		    	
+				if (a.score < b.score) /* For descending order use < */
+				{
+					swap       = (Warrior) array[d];
+					array[d]   = array[d+1];
+					array[d+1] = swap;
+				}
+			}
+		}
+        
+        for(int i = 0; i < array.length; i++)
+        {
+        	Warrior each = (Warrior)array[i];
+        	each.updateWarriorSprite(spriteBatch);
+        	Art.ScoreIconSprites.get(each.warriorNumber).setPosition(this.screenWidth/14, 930f - (70f * i));
+        	Art.ScoreIconSprites.get(each.warriorNumber).draw(spriteBatch);
+        }
+	}
 
 	@Override
 	public void resize(int width, int height) {
@@ -247,7 +281,7 @@ public class ArenaScreen implements Screen
 	
 	private void checkForNewPlayers()
 	{
-		int nextPlayerNumber = this.warriorsList.size() + 1;
+		int nextPlayerNumber = this.warriorsList.size();
 		
 		if(this.game.controls.size() != this.warriorsList.size())
 		{			

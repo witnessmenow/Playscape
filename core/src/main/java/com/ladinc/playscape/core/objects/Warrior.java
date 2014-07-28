@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.PrismaticJointDef;
+import com.ladinc.playscape.core.assests.Art;
 import com.ladinc.playscape.core.bel.BodyEditorLoader;
 import com.ladinc.playscape.core.collision.CollisionInfo;
 import com.ladinc.playscape.core.collision.CollisionInfo.CollisionObjectType;
@@ -59,8 +60,6 @@ public class Warrior {
 	
 	private Arena arena;
 	
-	private List<Sprite> warriorSpritesList;
-	
 	public Warrior(World world, Arena arena, int number, IControls controller)
 	{
 		score = 0;
@@ -78,19 +77,6 @@ public class Warrior {
 		this.controller = controller;
 		
 		this.power = 800f;
-		
-		warriorSpritesList = new ArrayList<Sprite>();
-		warriorSpritesList.add(new Sprite(new Texture(Gdx.files.internal("warriors/" + this.warriorNumber + "/Up.png"))));
-		warriorSpritesList.add(new Sprite(new Texture(Gdx.files.internal("warriors/" + this.warriorNumber + "/Down.png"))));
-		warriorSpritesList.add(new Sprite(new Texture(Gdx.files.internal("warriors/" + this.warriorNumber + "/Left.png"))));
-		warriorSpritesList.add(new Sprite(new Texture(Gdx.files.internal("warriors/" + this.warriorNumber + "/Left.png"))));
-		warriorSpritesList.get(3).flip(true, false);
-		warriorSpritesList.add(new Sprite(new Texture(Gdx.files.internal("warriors/" + this.warriorNumber + "/DiagDown.png"))));
-		warriorSpritesList.add(new Sprite(new Texture(Gdx.files.internal("warriors/" + this.warriorNumber + "/DiagDown.png"))));
-		warriorSpritesList.get(5).flip(true, false);
-		warriorSpritesList.add(new Sprite(new Texture(Gdx.files.internal("warriors/" + this.warriorNumber + "/DiagUp.png"))));
-		warriorSpritesList.add(new Sprite(new Texture(Gdx.files.internal("warriors/" + this.warriorNumber + "/DiagUp.png"))));
-		warriorSpritesList.get(7).flip(true, false);
 		
 		
 		resetWarrior();
@@ -133,6 +119,9 @@ public class Warrior {
 		//this.warriorOrigin = loader.getOrigin("Warrior", 12.8f).cpy();
 		
 		this.body.setUserData(new CollisionInfo("", CollisionObjectType.player, this));
+		
+		this.body.setLinearDamping(0.2f);
+		
 		addSensor(world);
 		this.bodiesDestroyed = false;
 		
@@ -287,6 +276,8 @@ public class Warrior {
 				}
 			}
 		}
+		
+		this.body.setLinearDamping(0.2f);
 	}
 	
 	public void updateWarriorSprite(SpriteBatch sb)
@@ -312,35 +303,7 @@ public class Warrior {
 	
 	private void drawWarriorSprite(SpriteBatch sb)
     {
-		switch(currentDirection)
-		{
-			case Up:
-			{
-				drawTheSprite(this.warriorSpritesList.get(0), sb);
-				return;
-			}
-			case Down:
-				drawTheSprite(this.warriorSpritesList.get(1), sb);
-				return;
-			case Right:
-				drawTheSprite(this.warriorSpritesList.get(3), sb);
-				return;
-			case Left:
-				drawTheSprite(this.warriorSpritesList.get(2), sb);
-				return;
-			case DiagDownLeft:
-				drawTheSprite(this.warriorSpritesList.get(4), sb);
-				return;
-			case DiagDownRight:
-				drawTheSprite(this.warriorSpritesList.get(5), sb);
-				return;
-			case DiagUpLeft:
-				drawTheSprite(this.warriorSpritesList.get(6), sb);
-				return;
-			case DiagUpRight:
-				drawTheSprite(this.warriorSpritesList.get(7), sb);
-				return;
-		}
+		drawTheSprite(Art.WarriorSprites.get(warriorNumber).get(currentDirection), sb);
 		
     }
 	
